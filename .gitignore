@@ -1,6 +1,9 @@
 # Ignore executable files
 *.exe
 
+# Ignore Java class files
+*.class
+
 # Ignore Word files
 *.docx
 
