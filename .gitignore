@@ -1,1 +1,17 @@
-Python Notes.docs
+# Ignore executable files
+*.exe
+
+# Ignore Word files
+*.docx
+
+# Ignore temporary files
+*.tmp
+
+# Ignore Python cache
+__pycache__/
+
+# Ignore node modules
+node_modules/
+
+# Ignore VS Code settings
+.vscode/
