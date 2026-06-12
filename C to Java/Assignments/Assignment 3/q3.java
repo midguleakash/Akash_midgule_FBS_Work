@@ -6,12 +6,11 @@ Output: 15  */
 
 import java.util.Scanner;
 
-public class q2 {
+public class q3 {
 
     public static void main(String args[]) {
 
         int start = 1 , end = 5 , sum = 0;
-
 	while(start <= end) {
 		sum = sum + start ;
 		start++ ;
