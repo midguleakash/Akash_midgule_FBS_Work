@@ -1,0 +1,22 @@
+MySQL Assignment – 1
+
+Q1) Display Databases
+Login to MySQL and write a query to display all databases already present in the system.
+
+ show databases;
+
+
+Q2) Create countries Table
+Write an SQL query to create a table named countries including columns country_id,
+country_name and region_id.
+After this display the structure of table.
+
+ create table countries(
+    -> country_id int,
+    -> country_name varchar(30),
+    -> region_id int);
+
+ desc countries;
+
+
+
