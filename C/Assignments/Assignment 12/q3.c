@@ -16,7 +16,7 @@ void removeCh(char str[], int index){
 		i++ ;
 	}
 	
-	str[i] = '\n';
+	str[i] = '\0';
 	
 }
 
