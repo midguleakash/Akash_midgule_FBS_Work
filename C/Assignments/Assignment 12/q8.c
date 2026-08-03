@@ -16,6 +16,7 @@ int countWord(char str[]){
 int main() {
 	char str[50];
 	
+	// take input from user
 	printf("Enter string : ");
 	scanf("%[^\n]" , str);
 	
