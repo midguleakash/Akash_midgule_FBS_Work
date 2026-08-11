@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Shadi karo</h1>
+    <input type="number" id = "age">
+    <button onclick="checkAge()">Check eligibility</button><h1 id="response"></h1>
+    
+
+    <script>
+        function checkAge(){
+            let age =Number (document.getElementById("age").value)
+            let response=document.getElementById("response")
+
+            if(age >= 21 && age < 90){
+                 response.innerText = "You are elgible"
+                 response.style.color = "green"
+                 response.style.border.color = "green"
+            }
+
+            else if(age > 90){
+                response.innerText = "thode ke liye shadi mat karo "
+                response.style.color = "yellow"
+                response.style.border.color = "yellow"
+            }
+            else {
+                response.innerText = "bhaagooo yaha se "
+                response.style.color = "red"
+                response.style.border.color = "red"
+            }
+            response.innerText = "Good Morning, " +input+ "!!!"
+        }
+    </script>
+</body>
+</html>
