@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: linear-gradient(135deg, #dbeafe, #f0f9ff);
+        font-family: Arial, sans-serif;
+    }
+
+    .outer {
+        width:600px;
+        min-height: 400px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        padding: 40px;
+
+        background-color: white;
+
+        border-radius: 20px;
+
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .inner {
+        width: 100%;
+        text-align: center;
+    }
+
+    h1 {
+        margin-bottom: 30px;
+        font-size: 38px;
+        color: #1e293b;
+    }
+
+    input {
+        width: 180px;
+        padding: 12px;
+
+        font-size: 18px;
+
+        border: 2px solid #cbd5e1;
+        border-radius: 8px;
+
+        outline: none;
+    }
+
+    input:focus {
+        border-color: #2563eb;
+    }
+
+    button {
+        padding: 12px 18px;
+
+        margin-left: 8px;
+
+        font-size: 16px;
+        font-weight: bold;
+
+        border: none;
+        border-radius: 8px;
+
+        background-color: #2563eb;
+        color: white;
+
+        cursor: pointer;
+    }
+
+    button:hover {
+        background-color: #1d4ed8;
+    }
+
+    h3 {
+        margin-top: 25px;
+        color: #334155;
+    }
+
+    #result {
+        color: #dc2626;
+    }
+
+    #remamingAttempts {
+        color: #2563eb;
+        font-weight: bold;
+    }
+
+    
+</style>
+</head>
+
+<body>
+    <div class="outer">
+        <div class="inner">
+            <h1>Guess The Number</h1>
+            <input type="number" id="input">
+            <button onclick="guessNum()">Make a guess</button>
+            <button onclick="restartGameByUser()">Restart Game</button>
+            <h3>Result: <span id="result">---</span></h3>
+            <h3>Remaming Attempts: <span id="remamingAttempts">5</span></h3>
+        </div>
+    </div>
+    <script>
+        let randomNumber = Math.floor(Math.random()*100) +1 ;
+        let remamingAttemptCount = 5 ;
+
+        function guessNum () {
+            let gussNumber = Number (document.getElementById("input").value);
+            let result = document.getElementById("result");
+            let remamingAttempt = document.getElementById("remamingAttempts");
+            let secretNumber = randomNumber ;
+            remamingAttemptCount -- ;
+            remamingAttempt.innerText = remamingAttemptCount ;
+
+            if(remamingAttemptCount > 0){
+                if(gussNumber > secretNumber){
+                    result.innerText = "Too High!!!!"
+                }else if(gussNumber < secretNumber){
+                    result.innerText = "Too low!!!!"
+                }else {
+                    result.innerText = "You Guess the correct Number"
+                }
+            } else {
+                result.innerText = "Game Over!!! secret Number was : " + secretNumber;
+                restartGame();
+            }
+
+        } 
+
+        function restartGameByUser(){
+            randomNumber = Math.floor(Math.random()*100) +1 ;
+            document.getElementById("input").value=""
+            remamingAttemptCount = 5
+            let remamingAttempt = document.getElementById("remamingAttempts");
+            remamingAttempt.innerText = remamingAttemptCount ;
+            document.getElementById("result").innerText="---"
+
+        }
+
+        function restartGame(){
+            randomNumber = Math.floor(Math.random()*100) +1 ;
+            document.getElementById("input").value=""
+            remamingAttemptCount = 5
+            let remamingAttempt = document.getElementById("remamingAttempts");
+            remamingAttempt.innerText = remamingAttemptCount ;
+            
+
+        }
+
+    </script>
+</body>
+
+</html>
