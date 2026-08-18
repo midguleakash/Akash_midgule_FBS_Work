@@ -44,26 +44,26 @@ public class EmployeeDBDao implements EmployeeRepository {
 		return empList ;
 	}
 
-	@Override
-	public Employee searchEmployee(int id) {
-		Employee emp ;
-		try {
-			Statement stmt = DBUtil.getConnection().createStatement();
-			ResultSet result = stmt.executeQuery("select * from employee where emp_id="+id+  ";");
-			
-			if(result.next()) {
-				emp = new Employee(result.getInt(1) , result.getString(2) , result.getString(3) , result.getString(4) , result.getInt(5) , result.getString(6) );
-				return emp ;
-			}
-			else {
-				return null ;
-			}
-		} catch (SQLException e) {			
-			e.printStackTrace();
-		}
-		
-		return null ;
-	}
+	//@Override
+//	public Employee searchEmployee(int id) {
+//		Employee emp ;
+//		try {
+//			Statement stmt = DBUtil.getConnection().createStatement();
+//			ResultSet result = stmt.executeQuery("select * from employee where emp_id="+id+  ";");
+//			
+//			if(result.next()) {
+//				emp = new Employee(result.getInt(1) , result.getString(2) , result.getString(3) , result.getString(4) , result.getInt(5) , result.getString(6) );
+//				return emp ;
+//			}
+//			else {
+//				return null ;
+//			}
+//		} catch (SQLException e) {			
+//			e.printStackTrace();
+//		}
+//		
+//		return null ;
+//	}
 
 	@Override
 	public boolean deleteEmployee(int id) {

@@ -43,7 +43,14 @@ public class EmployeeView {
 		        	String city = sc.nextLine();
 		        	
 		        	Employee emp = new Employee(id, fName, lName, dep,sal, city );
-		        	empService.addEmployee(emp);
+		        	
+		        	if(empService.addEmployee(emp)) {
+		        		System.out.println("Employee add successfully");
+		        	}
+		        	else {
+		        		System.out.println("Employee Not add");
+		        	}
+		        	
 		        	
 		        	break;
 		        }
@@ -81,7 +88,7 @@ public class EmployeeView {
 		        	if (empService.deleteEmployee(id)) {
 			            System.out.println("Employee deleted successfully.");
 			        } else {
-			            System.out.println("Employee with ID " + id + " not found.");
+			            System.out.println("Employee not found delete");
 			        }
 		        	break ;
 		        }
