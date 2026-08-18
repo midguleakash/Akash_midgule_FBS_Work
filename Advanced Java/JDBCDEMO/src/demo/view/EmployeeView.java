@@ -1,17 +1,15 @@
-package demo;
+package demo.view;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Scanner ;
+import java.util.Scanner;
 
-public class Main {
-	
-	public static void main(String[] args) {
+import demo.model.Employee;
+import demo.service.EmployeeService;
+
+public class EmployeeView {
+	public static void showView() {
+		EmployeeService empService = new EmployeeService();
+		
 		Scanner sc =  new Scanner(System.in);
 		int choice ;		
 
@@ -45,7 +43,7 @@ public class Main {
 		        	String city = sc.nextLine();
 		        	
 		        	Employee emp = new Employee(id, fName, lName, dep,sal, city );
-		        	EmployeeDao.addEmployee(emp);
+		        	empService.addEmployee(emp);
 		        	
 		        	break;
 		        }
@@ -53,7 +51,7 @@ public class Main {
 		            
 
 		        case 2:{
-		        	ArrayList<Employee> empList = EmployeeDao.displayAll();
+		        	ArrayList<Employee> empList = empService.getAllEmployee();
 		        	for(Employee e : empList) {
 		        		System.out.println(e);
 		        	}		        	
@@ -65,7 +63,7 @@ public class Main {
 		        case 3:{
 		        	System.out.print("Enter id for search: ");
 		        	int id = sc.nextInt();
-		        	Employee emp = EmployeeDao.searchEmployee(id);
+		        	Employee emp = empService.searchEmployee(id);
 		        	
 		        	if(emp == null) {
 		        		System.out.println("--- Employee not found ---");
@@ -78,10 +76,9 @@ public class Main {
 		        }
 
 		        case 4:{
-		        	System.out.print("Enter id for search: ");
-		        	int id = sc.nextInt();
-		        	int rows = EmployeeDao.deleteEmployee(id);
-		        	if (rows > 0) {
+		        	System.out.print("Enter id for Delete: ");
+		        	int id = sc.nextInt();		        	
+		        	if (empService.deleteEmployee(id)) {
 			            System.out.println("Employee deleted successfully.");
 			        } else {
 			            System.out.println("Employee with ID " + id + " not found.");
@@ -91,7 +88,7 @@ public class Main {
 		            
 
 		        case 5:{
-		        	int count = EmployeeDao.countEmployee();
+		        	int count = empService.countTotalEmployee();
 		        	System.out.println(count);
 		        	break ;
 		        }
@@ -107,7 +104,5 @@ public class Main {
 		    }
 
 		} while (choice != 6);
-		 
 	}
-	
 }
