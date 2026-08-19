@@ -18,3 +18,8 @@ node_modules/
 
 # Ignore VS Code settings
 .vscode/
+
+*.jar
+
+# Apache Tomcat
+Advanced Java/apache-tomcat-10.1.57/
