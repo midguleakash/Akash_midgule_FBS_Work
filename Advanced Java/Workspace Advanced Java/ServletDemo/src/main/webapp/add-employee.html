@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Add Employee</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Add Employee</h1>
+
+        <form id="employeeForm"
+              action="addEmployee"
+              method="post">
+
+            <label>Employee ID</label>
+            <input type="number"
+                   id="id"
+                   name="id"
+                   required>
+
+            <label>First Name</label>
+            <input type="text"
+                   id="fName"
+                   name="fName"
+                   required>
+
+            <label>Last Name</label>
+            <input type="text"
+                   id="lName"
+                   name="lName"
+                   required>
+
+            <label>Department</label>
+            <input type="text"
+                   id="department"
+                   name="department"
+                   required>
+
+            <label>Salary</label>
+            <input type="number"
+                   id="salary"
+                   name="salary"
+                   step="0.01"
+                   required>
+
+            <label>City</label>
+            <input type="text"
+                   id="city"
+                   name="city"
+                   required>
+
+            <button type="submit">
+                Add Employee
+            </button>
+
+        </form>
+
+        <a href="index.html">Back to Home</a>
+
+    </div>
+
+    <!-- <script src="js/add-employee.js"></script> -->
+
+</body>
+
+</html>

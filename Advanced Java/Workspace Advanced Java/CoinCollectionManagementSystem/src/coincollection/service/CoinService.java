@@ -4,15 +4,22 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import coincollection.model.Coin;
+import coincollection.model.CoinStatus;
 import coincollection.repository.CoinDBDao;
 import coincollection.repository.CoinRepository;
 
 public class CoinService {
 	CoinRepository coinRepo = new CoinDBDao();
 	ArrayList<Coin> coinList = new ArrayList();
+	ArrayList<CoinStatus> coinStatusList = new ArrayList<>();
 	
 	public CoinService() {
 		coinList = coinRepo.getAllCoin();
+		
+		for(Coin c : coinList) {
+			CoinStatus cs = new CoinStatus(c,"UNCHANGED");
+			coinStatusList.add(cs);
+		}
 	}
 	
 	public boolean addCoin(Coin c) {
@@ -22,6 +29,41 @@ public class CoinService {
 		}
 		
 		return false ;
+	}
+	
+	
+	public boolean deleteCoin(int id) {
+
+	    Coin deleteCoin = null;
+
+	    // Find coin
+	    for (Coin c : coinList) {
+
+	        if (c.getId() == id) {
+	            deleteCoin = c;
+	            break;
+	        }
+	    }
+
+	    if (deleteCoin == null) {
+	        return false;
+	    }
+
+	    
+	    coinList.remove(deleteCoin);
+
+
+	    // Change status
+	    for (CoinStatus cs : coinStatusList) {
+
+	        if (cs.getCoin().getId() == id) {
+
+	            cs.setStatus("DELETE");
+	            break;
+	        }
+	    }
+
+	    return true;
 	}
 	
 	

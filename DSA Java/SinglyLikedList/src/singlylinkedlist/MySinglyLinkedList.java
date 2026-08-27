@@ -103,13 +103,18 @@ public class MySinglyLinkedList {
 			itr = itr.next ;
 		}
 		itr.next = itr.next.next ;
-		System.out.println("--- delete start Node ---");
+		System.out.println("--- delete Last Node ---");
 	}
 	
 	
 	public void deleteAtPosition(int index) {
 		if(start == null) {
 			System.out.println("--- List is empty ---\n");	
+			return ;
+		}
+		
+		if(index <= 0) {
+			System.out.println("--- invalid index ---")	;
 			return ;
 		}
 		
@@ -132,6 +137,32 @@ public class MySinglyLinkedList {
 		
 		itr.next = itr.next.next ;
 		System.out.println("--- delete this index Node ---");
+	}
+	
+	
+	public int lenthOfList() {
+		if(start == null) {				
+			return 0;
+		}
+		int lenth = 0 ;
+		Node temp = start ;
+		while(temp.next != null) {
+			temp = temp.next ;
+			lenth++ ;
+		}		
+		lenth++ ;		
+		return lenth ;
+	}
+	
+	
+	public void deleteAtPositionFromEnd(int n) {
+		if(start == null) {
+			System.out.println("--- List is empty ---\n");	
+			return ;
+		}
+		int position = lenthOfList() - n + 1 ;
+		deleteAtPosition(position);
+		
 	}
 	
 	public int search(int data) {
@@ -173,5 +204,94 @@ public class MySinglyLinkedList {
 		
 		System.out.println();
 		
+	}
+	
+	public void printReverse(Node temp) {
+		if(temp == null) {
+			return ;
+		}
+		printReverse(temp.next);
+		System.out.print(" <- " + temp.data  );
+	}
+	
+	public void printReverseLinkedList() {
+		if(start == null) {
+			System.out.println("--- List is empty ---\n");
+			return ;
+		}
+		System.out.print("list : ");
+		System.out.print("null");
+		printReverse(start);
+	}
+	
+	
+	public void makeReverse() {
+		if(start == null) {
+			System.out.println("--- List is empty ---\n");
+			return ;
+		}
+		
+		Node prev = null ;
+		Node current = start ;
+		Node next ;
+		
+		while(current != null) {
+			next = current.next ;
+			current.next = prev ;
+			prev = current ;
+			current = next ;
+		}
+		
+		start = prev ;
+		System.out.println("--- List reversed successfully ---");
+	}
+	
+	public Node findMiddle(Node start) {
+		Node slow = start ;
+		Node fast = start ;
+		
+		while(fast != null && fast.next != null) {
+			slow = slow.next ;
+			fast = fast.next.next ;
+		}
+		
+		return slow ;
+	}
+	
+	public boolean checkPalindrome() {
+		if(start == null || start.next == null) {
+			return true ;
+		}
+		
+		// step 1 : find middle node
+		Node midNode = 	findMiddle(start);
+		
+		// step 2 : reverse 2nd half
+		Node prev = null ;
+		Node current = midNode ;
+		Node next ;
+		
+		while(current != null) {
+			next = current.next ;
+			current.next = prev ;
+			prev = current ;
+			current = next ;
+		}
+		
+		Node rightEnd = prev;
+		Node left = start ;
+		
+		// step 3 : check left half or right half are equal or not
+		
+		while(rightEnd != null) {
+			if(left.data != rightEnd.data) {
+				return false ;
+			}
+			
+			left = left.next;
+			rightEnd = rightEnd.next ;
+		}
+		
+		return true ;
 	}
 }

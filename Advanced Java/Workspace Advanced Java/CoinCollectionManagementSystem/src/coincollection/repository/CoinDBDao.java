@@ -34,6 +34,31 @@ public class CoinDBDao implements CoinRepository {
 		return false;
 		
 	}
+	
+	@Override
+	public boolean deleteCoin(int id) {
+
+	    try {
+
+	        String query = "delete from coin where id = ?";
+
+	        PreparedStatement pstmt =
+	                DBUtilCoin.getConnection().prepareStatement(query);
+
+	        pstmt.setInt(1, id);
+
+	        int rows = pstmt.executeUpdate();
+
+	        if (rows > 0) {
+	            return true;
+	        }
+
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+
+	    return false;
+	}
 
 	@Override
 	public ArrayList<Coin> getAllCoin() {

@@ -16,10 +16,15 @@ public class MainApp {
 			System.out.println("\t3.Add at index");			
 			System.out.println("\t4.Delete at start");
 			System.out.println("\t5.Delete at end");
-			System.out.println("\t6.Delete at index");
+			System.out.println("\t6.Delete at index from start");
 			System.out.println("\t7.Display a list");
 			System.out.println("\t8.Search data in a list");
-			System.out.println("\t10.Exit");
+			System.out.println("\t9.Print the Reverse of list");
+			System.out.println("\t10.Make your list in reverse");
+			System.out.println("\t11.Print lenth of list");
+			System.out.println("\t12.Delete at index from end");
+			System.out.println("\t13.Cheack Palindrome or not");
+			System.out.println("\t15.Exit");
 			System.out.print("Enter choice : ");
 			choice = sc.nextInt();
 			
@@ -91,10 +96,50 @@ public class MainApp {
 					break ;
 				}
 				
+				case 9 : {
+					myLL.printReverseLinkedList() ;
+					break ;
+				}
+				
 				case 10 : {
+					myLL.makeReverse();	
+					break ;
+				}
+				
+				case 11 : {
+					System.out.print("lenth of list : " + myLL.lenthOfList());
+					System.out.println();	
+					break ;
+				}
+				
+				case 12 : {
+					int index ;					
+					System.out.print("Enter index : ");
+					index = sc.nextInt();
+					myLL.deleteAtPositionFromEnd(index);
+					break ;
+				}
+				
+				
+				case 13 : {
+					if(myLL.checkPalindrome) {
+						System.out.print("list is palindrome ");
+					}
+					else {
+						System.out.print("Enter index : ");
+					}
+					System.out.print("list is not  palindrome ");
+					
+					break ;
+				}
+				
+				
+				case 15 : {
 					System.out.println("----- Prgram terminatting -----");	
 					break ;
 				}
+				
+				
 				
 				default : {
 					System.out.println("--- Invalid Choice! ---");
@@ -102,7 +147,7 @@ public class MainApp {
 				}
 			}
 			
-		} while (choice != 10);
+		} while (choice != 15);
 		
 	}
 }
