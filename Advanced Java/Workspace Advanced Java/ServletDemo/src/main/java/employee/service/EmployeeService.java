@@ -9,14 +9,27 @@ import java.util.ArrayList;
 
 
 public class EmployeeService {
-	EmployeeRepository empRepo = new EmployeeDBDao(); 	
-	ArrayList<Employee> empList = new ArrayList<>();
+	private static EmployeeService instance;
+
+    private EmployeeRepository empRepo = new EmployeeDBDao();
+
+    private ArrayList<Employee> empList = new ArrayList<>();
+
 	
 	// by default load data from sql to reduce load on db
 	
 	public EmployeeService(){
 		empList = empRepo.getAllEmployee();
 	}
+	
+	public static EmployeeService getInstance() {
+
+        if (instance == null) {
+            instance = new EmployeeService();
+        }
+
+        return instance;
+    }
 	
 	public boolean addEmployee(Employee emp) {
 		boolean found = false ;

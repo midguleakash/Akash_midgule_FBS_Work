@@ -16,7 +16,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/addEmployee")
 public class AddEmployeeServlet extends HttpServlet {
-	EmployeeService empService = new EmployeeService();
+	private EmployeeService empService =
+            EmployeeService.getInstance();
 	
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
