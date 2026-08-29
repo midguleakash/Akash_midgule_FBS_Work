@@ -1,47 +1,32 @@
 function getEmployees() {
 
-    const employees = [
+    fetch("employees")
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(employees) {
 
-        {
-            id: 101,
-            fName: "Akash",
-            lName: "Patil",
-            department: "IT",
-            salary: 50000,
-            city: "Pune"
-        },
+            const table = document.getElementById("employeeTable");
 
-        {
-            id: 102,
-            fName: "Rahul",
-            lName: "Sharma",
-            department: "HR",
-            salary: 45000,
-            city: "Mumbai"
-        }
+            table.innerHTML = "";
 
-    ];
+            employees.forEach(function(employee) {
 
-    const table = document.getElementById("employeeTable");
+                const row = `
+                    <tr>
+                        <td>${employee.id}</td>
+                        <td>${employee.fName}</td>
+                        <td>${employee.lName}</td>
+                        <td>${employee.department}</td>
+                        <td>${employee.salary}</td>
+                        <td>${employee.city}</td>
+                    </tr>
+                `;
 
-    table.innerHTML = "";
-
-    employees.forEach(function(employee) {
-
-        const row = `
-            <tr>
-
-                <td>${employee.id}</td>
-                <td>${employee.fName}</td>
-                <td>${employee.lName}</td>
-                <td>${employee.department}</td>
-                <td>${employee.salary}</td>
-                <td>${employee.city}</td>
-
-            </tr>
-        `;
-
-        table.innerHTML += row;
-
-    });
+                table.innerHTML += row;
+            });
+        })
+        .catch(function(error) {
+            console.error("Error:", error);
+        });
 }
