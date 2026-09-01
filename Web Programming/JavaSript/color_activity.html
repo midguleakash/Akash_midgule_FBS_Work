@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <button class="btn">Red</button>
+    <button class="btn">Blue</button>
+    <button class="btn">Green</button>
+
+
+    <script>
+        let btn = document.querySelectorAll(".btn");
+
+        btn.forEach(function(ele){
+            ele.addEventListener("click", function(){
+                document.querySelector("body").style.backgroundColor=ele.innerText
+            })
+        })
+    </script>
+    
+</body>
+</html>
