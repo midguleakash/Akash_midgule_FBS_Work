@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Enter name</h1>
+    <input type="text" id="ip">
+    <button id="btn1">Register</button>
+    <button id="btn2">Clear</button>
+    <p>Results: <span id="result">-----</span></p>
+
+    <script>
+        let btn1 = document.getElementById("btn1");
+        let btn2 = document.getElementById("btn2");
+
+        btn1.addEventListener("click", function () {
+            let input = document.getElementById("ip").value;
+            localStorage.setItem("name", input);
+            let output = localStorage.getItem("name");
+            document.getElementById("result").innerText = output;
+        });
+
+        btn2.addEventListener("click",function(){
+            localStorage.clear()
+        })
+
+        let output = localStorage.getItem("name");
+        document.getElementById("result").innerText = output;
+
+
+        let students = ["akash", "swapnil", "mahesh"];
+        localStorage.setItem("slist",
+            JSON.stringify(students)
+        )
+
+        console.log("Data store in local storage");
+        let outlist = JSON.parse(localStorage.getItem("slist"))
+
+        console.log(outlist)
+    </script>
+</body>
+
+</html>
