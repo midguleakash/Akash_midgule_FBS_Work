@@ -1,45 +1,171 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Employee Management System</title>
+<title>All Employees</title>
 
-    <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/style1.css">
+
 </head>
 
 <body>
 
-    <div class="container">
+```
+<div class="container">
 
-        <h1>Employee Management System</h1>
+    <h1>Employee Management</h1>
 
-        <div class="menu">
+    <!-- Controls -->
+    <div class="employee-controls">
 
-            <a href="add-employee.html">
-                <button>Add Employee</button>
-            </a>
+        <div class="search-box">
+            <label for="searchId">Search by ID</label>
 
-            <a href="employees.html">
-                <button>Display All Employees</button>
-            </a>
+            <input
+                type="number"
+                id="searchId"
+                placeholder="Enter employee ID"
+            >
 
-            <a href="search-employee.html">
-                <button>Search Employee</button>
-            </a>
+            <button id="searchBtn">Search</button>
+            <button id="clearBtn">Clear</button>
+        </div>
 
-            <a href="delete-employee.html">
-                <button>Delete Employee</button>
-            </a>
+        <div class="employee-count">
+            Total Employees:
+            <span id="employeeCount">0</span>
+        </div>
 
-            <a href="count-employee.html">
-                <button>Count Employees</button>
-            </a>
+    </div>
+
+    <!-- Employee Table -->
+    <table>
+
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Department</th>
+                <th>Salary</th>
+                <th>City</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody id="employeeTable">
+            <!-- JavaScript will add rows here -->
+        </tbody>
+
+    </table>
+
+    <br>
+
+    <a href="index.html">Back to Home</a>
+
+</div>
+
+
+<!-- ============================= -->
+<!-- Employee Modal -->
+<!-- ============================= -->
+
+<div id="employeeModal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="closeModal" class="close">&times;</span>
+
+        <h2 id="modalTitle">Employee Details</h2>
+
+        <!-- View Section -->
+        <div id="viewSection">
+
+            <p>
+                <strong>ID:</strong>
+                <span id="viewId"></span>
+            </p>
+
+            <p>
+                <strong>First Name:</strong>
+                <span id="viewFirstName"></span>
+            </p>
+
+            <p>
+                <strong>Last Name:</strong>
+                <span id="viewLastName"></span>
+            </p>
+
+            <p>
+                <strong>Department:</strong>
+                <span id="viewDepartment"></span>
+            </p>
+
+            <p>
+                <strong>Salary:</strong>
+                <span id="viewSalary"></span>
+            </p>
+
+            <p>
+                <strong>City:</strong>
+                <span id="viewCity"></span>
+            </p>
+
+            <button id="viewCloseBtn">Close</button>
+
+        </div>
+
+
+        <!-- Update Section -->
+        <div id="updateSection">
+
+            <form id="updateForm">
+
+                <label>ID</label>
+                <input type="number" id="updateId" disabled>
+
+                <label>First Name</label>
+                <input type="text" id="updateFirstName" required>
+
+                <label>Last Name</label>
+                <input type="text" id="updateLastName" required>
+
+                <label>Department</label>
+                <input type="text" id="updateDepartment" required>
+
+                <label>Salary</label>
+                <input type="number" id="updateSalary" required>
+
+                <label>City</label>
+                <input type="text" id="updateCity" required>
+
+                <div class="modal-buttons">
+
+                    <button type="submit">
+                        Update
+                    </button>
+
+                    <button type="button" id="updateCancelBtn">
+                        Cancel
+                    </button>
+
+                </div>
+
+            </form>
 
         </div>
 
     </div>
 
+</div>
+
+
+<script src="js/employees1.js"></script>
+
 </body>
+
 </html>
