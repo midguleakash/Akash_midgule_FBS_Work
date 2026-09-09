@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            margin: 30px;
+        }
+
+        form {
+            width: 500px;
+        }
+
+        input, select, button {
+            width: 100%;
+            padding: 8px;
+            margin: 6px 0 15px;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-top: 25px;
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Add Student</h1>
+
+    <form id="studentForm">
+
+        <h2>Student Details</h2>
+
+        <label>FRN</label>
+        <input type="text" id="frn" required>
+
+        <label>Name</label>
+        <input type="text" id="name" required>
+
+        <label>Date of Birth</label>
+        <input type="date" id="dob" required>
+
+        <label>Mobile Number</label>
+        <input type="number" id="mobno" required>
+
+
+        <h2>Address Details</h2>
+
+        <label>Address ID</label>
+        <input type="number" id="addressId" required>
+
+        <label>Pincode</label>
+        <input type="number" id="pincode" required>
+
+        <label>Lane No</label>
+        <input type="text" id="laneno" required>
+
+        <label>House No</label>
+        <input type="text" id="houseno" required>
+
+        <label>City</label>
+        <input type="text" id="city" required>
+
+        <label>State</label>
+        <input type="text" id="state" required>
+
+
+        <h2>Batch</h2>
+
+        <label>Select Batch</label>
+
+        <select id="batch" required>
+            <option value="">-- Select Batch --</option>
+        </select>
+
+        <button type="submit">Add Student</button>
+
+    </form>
+
+
+    <script>
+
+        // Load batch list
+        function loadBatches() {
+
+            fetch("http://localhost:8080/StudentManagement/getallbatch")
+                .then(response => response.json())
+                .then(batches => {
+
+                    const batchSelect = document.querySelector("#batch");
+
+                    batches.forEach(batch => {
+
+                        const option = document.createElement("option");
+
+                        option.value = batch.batchId;
+                        option.textContent =
+                            batch.batchId + " - " + batch.batchName;
+
+                        batchSelect.appendChild(option);
+                    });
+
+                })
+                .catch(error => {
+                    console.log("Error loading batches:", error);
+                });
+        }
+
+
+        // Add Student
+        document.querySelector("#studentForm")
+            .addEventListener("submit", function(event) {
+
+                
+
+
+                const student = {
+
+                    frn: document.querySelector("#frn").value,
+
+                    name: document.querySelector("#name").value,
+
+                    dob: document.querySelector("#dob").value,
+
+                    mobno: Number(
+                        document.querySelector("#mobno").value
+                    ),
+
+                    address: {
+
+                        id: Number(
+                            document.querySelector("#addressId").value
+                        ),
+
+                        pincode: Number(
+                            document.querySelector("#pincode").value
+                        ),
+
+                        laneno: document.querySelector("#laneno").value,
+
+                        houseno: document.querySelector("#houseno").value,
+
+                        city: document.querySelector("#city").value,
+
+                        state: document.querySelector("#state").value
+                    },
+
+                    batch: {
+
+                        batchId: document.querySelector("#batch").value
+
+                    }
+                };
+
+
+                console.log(student);
+
+
+                fetch("http://localhost:8080/StudentManagement/addstudent", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify(student)
+
+                })
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error("Failed to add student");
+                    }
+
+                    return response.text();
+
+                })
+                .then(data => {
+
+                    alert("Student added successfully!");
+
+                    document.querySelector("#studentForm").reset();
+
+                })
+                .catch(error => {
+
+                    console.log(error);
+
+                    alert("Error adding student");
+
+                });
+
+            });
+
+
+        // Call when page loads
+        loadBatches();
+
+    </script>
+
+</body>
+</html>
