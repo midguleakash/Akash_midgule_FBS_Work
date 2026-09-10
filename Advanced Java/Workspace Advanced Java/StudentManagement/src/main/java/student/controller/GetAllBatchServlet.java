@@ -15,7 +15,7 @@ import student.model.Batch;
 import student.service.StudentService;
 
 @WebServlet("/getallbatch")
-public class GetAllBatch extends HttpServlet{
+public class GetAllBatchServlet extends HttpServlet{
 	
 	StudentService studentService = new StudentService();
 	

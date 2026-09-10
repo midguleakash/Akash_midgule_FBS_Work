@@ -5,6 +5,7 @@ import java.util.List;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
+import student.dto.BdayDetailsDTO;
 import student.model.Batch;
 import student.model.Student;
 import student.util.HibernateUtil;
@@ -36,6 +37,22 @@ public class StudentRepositoryImpl implements StudenRepository {
 		session.beginTransaction();
 		List<Batch> batchList = session.createQuery("from Batch", Batch.class).getResultList();
 		return batchList ;
+		
+	}
+
+	@Override
+	public List<BdayDetailsDTO> wishBday() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<BdayDetailsDTO> studentList = session.createQuery(
+			    "select new student.dto.BdayDetailsDTO(s.frn, s.name, s.dob) " +
+			    "from Student s " +
+			    "where month(s.dob) = month(current_date) " +
+			    "and day(s.dob) = day(current_date)",
+			    BdayDetailsDTO.class
+			).getResultList();
+		return studentList ;
+		
 		
 	}
 

@@ -1,7 +1,9 @@
 package student.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import student.dto.BdayDetailsDTO;
 import student.model.Batch;
 import student.model.Student;
 import student.repository.StudenRepository;
@@ -24,6 +26,13 @@ public class StudentService {
 	public List<Batch> getAllBatch() {
 		// TODO Auto-generated method stub
 		return studenRepository.getAllBatch();
+	}
+
+	public void wishBday() {
+		List<BdayDetailsDTO> studentList = studenRepository.wishBday();
+		
+		System.out.println(studentList);
+		
 	}
 
 }
