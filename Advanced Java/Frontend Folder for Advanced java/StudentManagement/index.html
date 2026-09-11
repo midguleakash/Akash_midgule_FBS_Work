@@ -93,7 +93,7 @@
         // Load batch list
         function loadBatches() {
 
-            fetch("http://localhost:8080/StudentManagement/getallbatch")
+            fetch("http://localhost:8080/StudentManagement/batch/getallbatch")
                 .then(response => response.json())
                 .then(batches => {
 
@@ -166,7 +166,7 @@
                 console.log(student);
 
 
-                fetch("http://localhost:8080/StudentManagement/addstudent", {
+                fetch("http://localhost:8080/StudentManagement/student/addstudent", {
 
                     method: "POST",
 
