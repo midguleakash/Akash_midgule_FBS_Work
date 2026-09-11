@@ -45,9 +45,9 @@
 
 		<!-- Entity -->
 
-		<mapping class="student.model.Student" />
-		<mapping class="student.model.Address" />
-		<mapping class="student.model.Batch" />
+		<mapping class="studentmanagement.model.Student" />
+		<mapping class="studentmanagement.model.Address" />
+		<mapping class="studentmanagement.model.Batch" />
 
 	</session-factory>
 

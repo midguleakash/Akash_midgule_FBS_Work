@@ -1,14 +1,20 @@
-package student.repository;
+package studentmanagement.repository;
 
 import java.util.List;
+
 
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
-import student.dto.BdayDetailsDTO;
-import student.model.Batch;
-import student.model.Student;
-import student.util.HibernateUtil;
+
+import studentmanagement.util.HibernateUtil;
+import studentmanagement.dto.BdayDetailsDTO;
+import studentmanagement.model.Batch;
+import studentmanagement.model.Student;
+
+
+
+
 
 public class StudentRepositoryImpl implements StudenRepository {
 
@@ -31,14 +37,7 @@ public class StudentRepositoryImpl implements StudenRepository {
 		return studentList ;
 	}
 
-	@Override
-	public List<Batch> getAllBatch() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		List<Batch> batchList = session.createQuery("from Batch", Batch.class).getResultList();
-		return batchList ;
-		
-	}
+	
 
 	@Override
 	public List<BdayDetailsDTO> wishBday() {

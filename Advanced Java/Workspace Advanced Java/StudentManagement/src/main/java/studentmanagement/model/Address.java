@@ -1,4 +1,4 @@
-package student.model;
+package studentmanagement.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;

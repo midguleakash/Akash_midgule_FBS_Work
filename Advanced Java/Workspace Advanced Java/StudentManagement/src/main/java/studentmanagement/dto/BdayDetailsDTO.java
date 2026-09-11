@@ -1,4 +1,4 @@
-package student.dto;
+package studentmanagement.dto;
 
 import java.time.LocalDate;
 

@@ -1,4 +1,4 @@
-package student.util;
+package studentmanagement.util;
 
 
 
