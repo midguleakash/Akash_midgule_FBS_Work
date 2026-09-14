@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Add Student</title>
 
@@ -13,7 +14,9 @@
             width: 500px;
         }
 
-        input, select, button {
+        input,
+        select,
+        button {
             width: 100%;
             padding: 8px;
             margin: 6px 0 15px;
@@ -29,6 +32,31 @@
             color: white;
             border: none;
             cursor: pointer;
+        }
+
+        #studentResult {
+            margin-top: 25px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        .error {
+            color: red;
         }
     </style>
 </head>
@@ -87,6 +115,24 @@
 
     </form>
 
+    <hr>
+
+    <h1>Get Students By City</h1>
+
+    <form id="citySearchForm">
+
+        <label>Enter City</label>
+
+        <input type="text" id="searchCity" placeholder="Enter city, for example shirur" required>
+
+        <button type="submit">
+            Search Students
+        </button>
+
+    </form>
+
+    <div id="studentResult"></div>
+
 
     <script>
 
@@ -119,9 +165,9 @@
 
         // Add Student
         document.querySelector("#studentForm")
-            .addEventListener("submit", function(event) {
+            .addEventListener("submit", function (event) {
 
-                
+
 
 
                 const student = {
@@ -177,37 +223,133 @@
                     body: JSON.stringify(student)
 
                 })
-                .then(response => {
+                    .then(response => {
 
-                    if (!response.ok) {
-                        throw new Error("Failed to add student");
-                    }
+                        if (!response.ok) {
+                            throw new Error("Failed to add student");
+                        }
 
-                    return response.text();
+                        return response.text();
 
-                })
-                .then(data => {
+                    })
+                    .then(data => {
 
-                    alert("Student added successfully!");
+                        alert("Student added successfully!");
 
-                    document.querySelector("#studentForm").reset();
+                        document.querySelector("#studentForm").reset();
 
-                })
-                .catch(error => {
+                    })
+                    .catch(error => {
 
-                    console.log(error);
+                        console.log(error);
 
-                    alert("Error adding student");
+                        alert("Error adding student");
 
-                });
+                    });
 
             });
+
+
 
 
         // Call when page loads
         loadBatches();
 
+
+
+        // Get Students By City
+        document.querySelector("#citySearchForm")
+            .addEventListener("submit", function (event) {
+
+                // Prevent page reload
+                event.preventDefault();
+
+                const city =
+                    document.querySelector("#searchCity").value.trim();
+
+                if (city === "") {
+                    return;
+                }
+
+                const url =
+                    "http://localhost:8080/StudentManagement/student/getstudentsbycity?city="
+                    + encodeURIComponent(city);
+
+                fetch(url)
+                    .then(response => {
+
+                        if (!response.ok) {
+                            throw new Error("Failed to fetch students");
+                        }
+
+                        return response.json();
+                    })
+                    .then(students => {
+
+                        displayStudents(students);
+                    })
+                    .catch(error => {
+
+                        console.log("Error:", error);
+
+                        document.querySelector("#studentResult").innerHTML =
+                            "<p class='error'>Error fetching students</p>";
+                    });
+            });
+
+
+        // Display DTO data in table
+        function displayStudents(students) {
+
+            const resultDiv =
+                document.querySelector("#studentResult");
+
+            if (students.length === 0) {
+
+                resultDiv.innerHTML =
+                    "<p>No students found for this city.</p>";
+
+                return;
+            }
+
+            let table = `
+        <h2>Students Found</h2>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>FRN</th>
+                    <th>Name</th>
+                    <th>City</th>
+                    <th>State</th>
+                </tr>
+            </thead>
+
+            <tbody>
+    `;
+
+            students.forEach(student => {
+
+                table += `
+            <tr>
+                <td>${student.frn}</td>
+                <td>${student.name}</td>
+                <td>${student.city}</td>
+                <td>${student.state}</td>
+            </tr>
+        `;
+            });
+
+            table += `
+            </tbody>
+        </table>
+    `;
+
+            resultDiv.innerHTML = table;
+        }
+
     </script>
 
 </body>
+
 </html>

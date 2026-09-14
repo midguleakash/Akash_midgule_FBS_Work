@@ -29,6 +29,9 @@ public class StudentServlet extends HttpServlet {
 		if ("/getallstudents".equals(path)) {
 			controller.getAllStudent(req, resp);
 		}
+		else if ("/getstudentsbycity".equals(path)) {
+			controller.getStudentByCity(req, resp);
+		}
 	}
 
 

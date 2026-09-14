@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Student;
 import studentmanagement.service.StudentService;
 
@@ -60,6 +61,21 @@ public class StudentController  {
 
 	public void wishBday() {
 		studentService.wishBday();
+		
+	}
+
+	public void getStudentByCity(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String city = req.getParameter("city");
+		List<StudentCityDTO> studentByCity = studentService.getStudentByCity(city);
+		
+		String studentByCityJson = objectMapper.writeValueAsString(studentByCity);
+		PrintWriter pw = resp.getWriter();
+
+		
+		resp.setContentType("application/json");
+		pw.write(studentByCityJson);
+
+		System.out.println(studentByCity);
 		
 	}
 }

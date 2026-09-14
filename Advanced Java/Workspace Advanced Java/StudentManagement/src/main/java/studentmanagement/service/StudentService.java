@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import studentmanagement.dto.BdayDetailsDTO;
+import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Batch;
 import studentmanagement.model.Student;
 import studentmanagement.repository.StudenRepository;
@@ -32,6 +33,11 @@ public class StudentService {
 		List<BdayDetailsDTO> studentList = studenRepository.wishBday();
 		
 		System.out.println(studentList);
+		
+	}
+
+	public List<StudentCityDTO> getStudentByCity(String city) {
+		return studenRepository.getStudentByCity(city);
 		
 	}
 

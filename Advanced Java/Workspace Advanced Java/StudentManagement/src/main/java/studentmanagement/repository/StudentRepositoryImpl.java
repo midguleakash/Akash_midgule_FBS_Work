@@ -3,12 +3,15 @@ package studentmanagement.repository;
 import java.util.List;
 
 
+
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 
 import studentmanagement.util.HibernateUtil;
 import studentmanagement.dto.BdayDetailsDTO;
+import studentmanagement.dto.StudentCityDTO;
+import studentmanagement.model.Address;
 import studentmanagement.model.Batch;
 import studentmanagement.model.Student;
 
@@ -51,6 +54,31 @@ public class StudentRepositoryImpl implements StudenRepository {
 			    BdayDetailsDTO.class
 			).getResultList();
 		return studentList ;
+		
+		
+	}
+
+	@Override
+	public List<StudentCityDTO> getStudentByCity(String city) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		
+		
+		
+		String query =
+		        "select new studentmanagement.dto.StudentCityDTO(" +
+		        "s.frn, " +
+		        "s.name, " +
+		        "s.address.city, " +
+		        "s.address.state" +
+		        ") " +
+		        "from Student s " +
+		        "where s.address.city = :city";
+		List<StudentCityDTO> studentByCity = session
+	            .createQuery(query, StudentCityDTO.class)
+	            .setParameter("city", city)
+	            .getResultList();
+		return studentByCity;
 		
 		
 	}
