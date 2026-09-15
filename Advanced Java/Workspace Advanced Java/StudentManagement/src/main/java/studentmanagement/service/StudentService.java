@@ -17,8 +17,8 @@ public class StudentService {
 	
 	StudenRepository studenRepository = new StudentRepositoryImpl();
 
-	public void addStudent(Student student) {
-		studenRepository.addStudent(student);
+	public boolean addStudent(Student student) {
+		return  studenRepository.addStudent(student);
 			
 	}
 

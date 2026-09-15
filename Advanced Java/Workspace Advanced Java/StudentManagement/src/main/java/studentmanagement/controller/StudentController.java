@@ -12,6 +12,7 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import studentmanagement.dto.EntityResponseDTO;
 import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Student;
 import studentmanagement.service.StudentService;
@@ -55,8 +56,18 @@ public class StudentController  {
 		Student student = objectMapper.readValue(studentString, Student.class);
 
 		System.out.println(student);
-		studentService.addStudent(student);
+		
+		EntityResponseDTO<Student> entityResponseDTO;
+		
+		if(studentService.addStudent(student)) {
+			 entityResponseDTO = new EntityResponseDTO<Student>(200,"student add successfully",null);
+		}else {
+			 entityResponseDTO = new EntityResponseDTO<Student>(500,"server error",null);
+		}
 
+		String responeJson = objectMapper.writeValueAsString(entityResponseDTO);
+		
+		resp.getWriter().print(responeJson);
 	}
 
 	public void wishBday() {

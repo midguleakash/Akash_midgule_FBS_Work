@@ -167,14 +167,14 @@
         document.querySelector("#studentForm")
             .addEventListener("submit", function (event) {
 
-
-
+                // Prevent page reload
+                event.preventDefault();
 
                 const student = {
 
-                    frn: document.querySelector("#frn").value,
+                    frn: document.querySelector("#frn").value.trim(),
 
-                    name: document.querySelector("#name").value,
+                    name: document.querySelector("#name").value.trim(),
 
                     dob: document.querySelector("#dob").value,
 
@@ -192,13 +192,13 @@
                             document.querySelector("#pincode").value
                         ),
 
-                        laneno: document.querySelector("#laneno").value,
+                        laneno: document.querySelector("#laneno").value.trim(),
 
-                        houseno: document.querySelector("#houseno").value,
+                        houseno: document.querySelector("#houseno").value.trim(),
 
-                        city: document.querySelector("#city").value,
+                        city: document.querySelector("#city").value.trim(),
 
-                        state: document.querySelector("#state").value
+                        state: document.querySelector("#state").value.trim()
                     },
 
                     batch: {
@@ -208,48 +208,53 @@
                     }
                 };
 
+                console.log("Student object:", student);
 
-                console.log(student);
+                fetch(
+                    "http://localhost:8080/StudentManagement/student/addstudent",
+                    {
+                        method: "POST",
 
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
 
-                fetch("http://localhost:8080/StudentManagement/student/addstudent", {
-
-                    method: "POST",
-
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-
-                    body: JSON.stringify(student)
-
-                })
+                        body: JSON.stringify(student)
+                    }
+                )
                     .then(response => {
 
+                        // Convert HTTP error into an exception
                         if (!response.ok) {
-                            throw new Error("Failed to add student");
+                            throw new Error("HTTP Error: " + response.status);
                         }
 
-                        return response.text();
-
+                        // Backend sends JSON response
+                        return response.json();
                     })
                     .then(data => {
 
-                        alert("Student added successfully!");
+                        console.log("Server response:", data);
 
-                        document.querySelector("#studentForm").reset();
+                        if (data.statusCode === 200) {
 
+                            alert(data.message);
+
+                            document.querySelector("#studentForm").reset();
+
+                        } else {
+
+                            alert("Error: " + data.message);
+                        }
                     })
                     .catch(error => {
 
-                        console.log(error);
+                        console.error("Error:", error);
 
                         alert("Error adding student");
-
                     });
 
             });
-
-
 
 
         // Call when page loads

@@ -13,7 +13,7 @@ import studentmanagement.model.Student;
 
 
 public  interface StudenRepository {
-	public void addStudent(Student student);
+	public boolean addStudent(Student student);
 	public List<Student> getAllStundets();
 	
 	public List<BdayDetailsDTO> wishBday();

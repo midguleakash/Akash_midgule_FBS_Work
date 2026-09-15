@@ -22,14 +22,22 @@ import studentmanagement.model.Student;
 public class StudentRepositoryImpl implements StudenRepository {
 
 	@Override
-	public void addStudent(Student student) {
+	public boolean addStudent(Student student) {
+		try {
+			Session session = HibernateUtil.getSessionFactory().openSession();
+			session.beginTransaction();
+			Batch batch = session.get(Batch.class, student.getBatch().getBatchId());
+			student.setBatch(batch);
+			session.persist(student);
+			session.getTransaction().commit();
+			
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return false ;
+		}
+		return true ;
 		
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		session.beginTransaction();
-		Batch batch = session.get(Batch.class, student.getBatch().getBatchId());
-		student.setBatch(batch);
-		session.persist(student);
-		session.getTransaction().commit();
 	}
 
 	@Override
