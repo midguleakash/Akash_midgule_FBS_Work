@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee List</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 30px;
+        }
+
+        button {
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        #message {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Employee List</h1>
+
+    <button id="loadEmployees">
+        Load Employees
+    </button>
+
+    <p id="message"></p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Salary</th>
+                <th>Department</th>
+            </tr>
+        </thead>
+
+        <tbody id="employeeTable">
+        </tbody>
+    </table>
+
+
+    <script>
+
+        document.querySelector("#loadEmployees")
+            .addEventListener("click", function () {
+
+                fetch(
+                    "http://localhost:8080/EmployeeManagement/employee/getallemployees"
+                )
+                .then(response => {
+
+                    if (!response.ok) {
+                        throw new Error(
+                            "HTTP Error: " + response.status
+                        );
+                    }
+
+                    return response.json();
+                })
+                .then(employees => {
+
+                    console.log(employees);
+
+                    const table =
+                        document.querySelector("#employeeTable");
+
+                    table.innerHTML = "";
+
+                    employees.forEach(employee => {
+
+                        const row = `
+                            <tr>
+                                <td>${employee.id}</td>
+                                <td>${employee.name}</td>
+                                <td>${employee.salary}</td>
+                                <td>${employee.department}</td>
+                            </tr>
+                        `;
+
+                        table.innerHTML += row;
+                    });
+
+                    document.querySelector("#message").innerText =
+                        "Employees loaded successfully";
+
+                })
+                .catch(error => {
+
+                    console.error(error);
+
+                    document.querySelector("#message").innerText =
+                        "Error loading employees";
+
+                });
+
+            });
+
+    </script>
+
+</body>
+</html>
