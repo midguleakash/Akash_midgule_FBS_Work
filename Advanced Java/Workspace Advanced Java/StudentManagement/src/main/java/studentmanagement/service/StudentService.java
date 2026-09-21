@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import studentmanagement.dto.BdayDetailsDTO;
 import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Batch;
@@ -12,7 +14,7 @@ import studentmanagement.repository.StudenRepository;
 import studentmanagement.repository.StudentRepositoryImpl;
 
 
-
+@Service
 public class StudentService {
 	
 	StudenRepository studenRepository = new StudentRepositoryImpl();

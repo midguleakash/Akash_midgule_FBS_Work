@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -14,13 +17,38 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import studentmanagement.config.SpringConfig;
 import studentmanagement.controller.StudentController;
 import studentmanagement.model.Student;
 import studentmanagement.service.StudentService;
 
 @WebServlet("/student/*")
 public class StudentServlet extends HttpServlet {
-	StudentController controller = new StudentController();
+	private StudentController controller;
+	 private ApplicationContext applicationContext;
+	//StudentController controller = new StudentController();
+	 
+	 
+	 @Override
+	    public void init() throws ServletException {
+
+	        applicationContext =
+	                new AnnotationConfigApplicationContext(
+	                        SpringConfig.class
+	                );
+
+	        controller =
+	                applicationContext.getBean(
+	                        StudentController.class
+	                );
+
+	        System.out.println("Spring Context Started");
+	        System.out.println("StudentController Bean Created");
+	    }
+
+	 
+
+     
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

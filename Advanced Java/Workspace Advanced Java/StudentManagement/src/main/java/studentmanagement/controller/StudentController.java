@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
@@ -17,13 +19,15 @@ import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Student;
 import studentmanagement.service.StudentService;
 
-
+@Component
 public class StudentController  {
-	StudentService studentService = new StudentService();
+	private final StudentService studentService;
+
+	//StudentService studentService = new StudentService();
 	ObjectMapper objectMapper = new ObjectMapper();
 	
-	public StudentController() {
-		
+	public StudentController(StudentService studentService) {
+		 this.studentService = studentService;
 		objectMapper.registerModule(new JavaTimeModule());
 	}
 	
