@@ -7,6 +7,11 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -19,7 +24,8 @@ import studentmanagement.dto.StudentCityDTO;
 import studentmanagement.model.Student;
 import studentmanagement.service.StudentService;
 
-@Component
+@RestController
+@RequestMapping("/getall")
 public class StudentController  {
 	private final StudentService studentService;
 
@@ -31,17 +37,14 @@ public class StudentController  {
 		objectMapper.registerModule(new JavaTimeModule());
 	}
 	
-	public void getAllStudent(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+	@GetMapping("/student")
+	public List<Student> getAllStudent() throws IOException {
 
 		List<Student> studentList = studentService.getAllStundets();
-		String studentJson = objectMapper.writeValueAsString(studentList);
-		PrintWriter pw = resp.getWriter();
+		System.out.println(studentList);
+		return studentList;
 
 		
-		resp.setContentType("application/json");
-		pw.write(studentJson);
-
-		System.out.println(studentList);
 
 	}
 	
